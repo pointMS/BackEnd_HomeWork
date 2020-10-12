@@ -20,15 +20,21 @@ public class References {
         System.out.println(x.apply(30.0));
 
         //4 Implement solution 7 from above as a method reference
-        Function<String, String> f7 = (s) -> (s.length() % 2 == 0) ? s.substring(0, s.length() / 2) : "";
-        // String is not a functional interface, has more that one function
+        //Function<String, String> f7 = (s) -> (s.length() % 2 == 0) ? s.substring(0, s.length() / 2) : "";
+        Function<String, String> f4 = References::transformString;
+        transformString("asdfg");
+        System.out.println(f4.apply("asdf"));
 
         //5 Given a class Employee with name and salary. Return an employee salary using 1. Supplier, 2. Function.
-        Employee employee = new Employee("Tom",2500);
+        Employee employee = new Employee("Tom", 2500);
         Supplier<Integer> f1 = employee::getSalary;
         System.out.println(f1.get().toString());
 
         Function<Employee, Integer> f2 = Employee::getSalary;
 
+    }
+
+    public static String transformString(String s) {
+        return (s.length() % 2 == 0) ? s.substring(0, s.length() / 2) : "";
     }
 }
