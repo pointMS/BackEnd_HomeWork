@@ -27,48 +27,6 @@ public class Main {
         Customer c5 = new Customer("Max", 15, new BankAccount("EU44111122223333")); // starts EU + years<17
         List<Customer> customerList = Arrays.asList(c1, c2, c3, c4, c5);
 
-        for (Customer c : customerList) {
-            int count = 0;
-            try {
-                checkAge(c);
-            } catch (AgeException e) {
-                System.out.println(c.getName() + ": " + e);
-                count++;
-            }
-            try {
-                checkIbanLength(c);
-            } catch (IbanLengthException e) {
-                System.out.println(c.getName() + ": " + e);
-                count++;
-            }
-            try {
-                checkCountryCode(c);
-            } catch (IbanCountryCodeException e) {
-                System.out.println(c.getName() + ": " + e);
-                count++;
-            } finally {
-                if (count == 0) {
-                    System.out.println(c.getName() + ": " + "IBAN is correct");
-                }
-            }
-        }
-    }
-
-    public static void checkAge(Customer c) throws AgeException {
-        if (c.getAge() < 17) {
-            throw new AgeException("Wrong age. The age is less 17");
-        }
-    }
-
-    public static void checkIbanLength(Customer c) throws IbanLengthException {
-        if (c.getBankAccount().getIban().length() < 16) {
-            throw new IbanLengthException("Wrong length. IBAN should contain 16 symbols");
-        }
-    }
-
-    public static void checkCountryCode(Customer c) throws IbanCountryCodeException {
-        if (!c.getBankAccount().getIban().startsWith("DE")) {
-            throw new IbanCountryCodeException("Wrong country code. IBAN should start with DE.");
-        }
+        Validator.validate(customerList);
     }
 }
